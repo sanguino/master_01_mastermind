@@ -1,0 +1,22 @@
+{
+  "name": "master_01_mastermind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanguino/master_01_mastermind.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanguino/master_01_mastermind/issues"
+  },
+  "homepage": "https://github.com/sanguino/master_01_mastermind#readme",
+  "dependencies": {
+    "node-plantuml": "^0.9.0"
+  }
+}

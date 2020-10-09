@@ -1,0 +1,36 @@
+@startuml mastermindClases
+
+MasterMind *-down-> "2" Jugador
+MasterMind *-down-> Turno
+Turno *-down-> Jugador
+Jugador <|-down- Atacante
+Jugador <|-down- Defensor
+
+MasterMind *-down-> Tablero
+
+Tablero *-down-> Fila
+Fila *-down-> "4" Color
+Fila <|-down- Objetivo
+Fila <|-down- "12" Ataque
+
+Ataque *-down-> Resultado
+Resultado *-down-> Muerto
+Resultado *-down-> Herido
+Resultado *-down-> Vivos
+
+/'
+Ataque *--> "4" Resultado
+Resultado <|-- Muerto
+Resultado <|-- Herido
+Resultado <|-- Vivo
+'/
+
+Accion <|-down- Atacar
+Accion <|-down- Resolver
+Atacar <.. Atacante
+Resolver <.. Defensor
+Atacar ..> Ataque
+Resolver ..> Resultado
+Fila ..> Accion
+
+@enduml
