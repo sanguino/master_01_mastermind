@@ -10,6 +10,19 @@ MasterMind *-down-> Tablero
 
 Tablero *-down-> Fila
 Fila *-down-> "4" Color
+
+Color <|-down- Blanco
+Color <|-down- Amarillo
+Color <|-down- Rosa
+Color <|-down- Verde
+Color <|-down- Rojo
+Color <|-down- Naranja
+Color <|-down- Azul
+Color <|-down- Gris
+
+
+
+
 Fila <|-down- Objetivo
 Fila <|-down- "12" Ataque
 
@@ -31,6 +44,7 @@ Atacar <.. Atacante
 Resolver <.. Defensor
 Atacar ..> Ataque
 Resolver ..> Resultado
+Resolver ..> Objetivo
 Fila ..> Accion
 
 @enduml
