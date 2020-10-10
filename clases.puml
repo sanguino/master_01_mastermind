@@ -1,0 +1,177 @@
+@startuml mastermindClases
+namespace sanguino.mastermind {
+
+    class MasterMind{
+	    - void play()
+	    - boolean isResumedGame()
+	    + static void main(String[])
+    }
+
+    class Board {
+        Board()
+        + void write()
+        + void put(Combination)
+        + void put(Result)
+    }
+
+    class Turn {
+        {static} final int NUMBER_PLAYERS = 2;
+        - Player[] players;
+        - int active;
+        Turn(Board)
+        - void play()
+        - Player getPlayer()
+        - void writeWinner()
+    }
+
+    abstract class Player {
+        - Board board
+        Player(Board)
+        + void play()
+    }
+
+    class MakerPlayer extends Player {
+        MakerPlayer(Board)
+        + Combination getSecretCombination(Message)
+        + Result checkSecretCombination(Combination)
+    }
+
+    class BreakerPlayer extends Player {
+        BreakerPlayer(Board)
+        + Combination getProposedCombination(Message)
+        - Error checkCombinationDuplicatedColors(Combination)
+    }
+
+    class Combination {
+        - Color[] colors
+        Combination(Color[])
+    }
+
+    class Result {
+        - Success[] success
+        Result(Success[])
+    }
+
+    enum Color {
+        RED
+        BLUE
+        YELLOW
+        GREEN
+        ORANGE
+        PURPLE
+        NULL_COLOR
+        - char symbol
+        - Color(char)
+        + boolean isNull()
+        void write()
+        {static} Color get(int)
+    }
+
+    enum Success {
+        WHITE
+        BLACK
+        NULL_SUCCESS
+        - Success()
+        + boolean isNull()
+        - void write()
+        - {static} Success get(int)
+    }
+
+    enum Message {
+        TITTLE
+        SEPARATOR
+        NUMBER_ATTEMPS
+        SECRET_COMBINATION
+        ENTER_COMBINATION
+        RESULT
+        PLAYER_WIN
+        PLAYER_LOSE
+        RESUME
+        NULL_MESSAGE
+        - String message
+        - Message(String)
+        + void write()
+        + void writeln()
+    }
+
+    enum Error {
+        WRONG_LENGTH
+        WRONG_COLOR
+        DUPLICATED
+        NULL_ERROR
+        - String message
+        Error()
+        Error(String)
+        + void writeln()
+    }
+
+    MasterMind *-down-> Board
+    MasterMind *-down-> Turn
+    MasterMind *-down-> Player
+    Turn *-down-> Player
+    Board o-down-> "0..10" Combination
+    Board o-down-> "0..10" Result
+    Combination *-down-> "4" Color
+    Result *-down-> Success
+    BreakerPlayer .-down-> Error
+    MakerPlayer *-down-> Message
+    MakerPlayer *-down-> "1" Combination
+    BreakerPlayer .-down-> Message
+    BreakerPlayer .-down-> Board
+    MasterMind .-down-> Message
+    Board .-down-> Message
+    Turn .-down-> Message
+}
+
+namespace sanguino.utils {
+
+    class Console {
+        + static Console console
+        + static Console instance()
+        - BufferedReader bufferedReader
+        + String readString(String)
+        + String readString()
+        + int readInt(String)
+        + char readChar(String)
+        + void writeln()
+        + void write(String)
+        + void write(int)
+        + void writeln(String)
+        + void writeln(int)
+        + void write(char)
+        + void writeError(String +)
+    }
+
+    class CombinationStringDialog { 
+        - {static} {final} int LENGTH
+        - {static} {final} String ERROR_LENGTH_MESSAGE
+        - {static} {final} String ERROR_COLORS_MESSAGE
+        + CombinationStringDialog(int, int)
+        + int read(String)
+    }
+
+    class YesNoDialog {
+        - static final char AFFIRMATIVE
+        - static final char NEGATIVE
+        - static final String SUFFIX
+        - static final String MESSAGE
+        - char answer;
+        + boolean read(String message)
+        - boolean isAfirmative()
+        - char getAnswer()
+        - boolean isNegative()
+    }
+
+    YesNoDialog .-down-> Console
+    CombinationStringDialog .-down-> Console
+}
+
+sanguino.utils.CombinationStringDialog .-down-> sanguino.mastermind.Color
+sanguino.mastermind.Error .-down-> sanguino.utils.Console
+sanguino.mastermind.Message .-down-> sanguino.utils.Console
+sanguino.mastermind.Success .-down-> sanguino.utils.Console
+sanguino.mastermind.Turn .-down-> sanguino.utils.CombinationStringDialog
+sanguino.mastermind.MasterMind .-down-> sanguino.utils.YesNoDialog
+
+
+@enduml
