@@ -1,4 +1,4 @@
-@startuml mastermindClases
+@startuml mastermindDomainModel
 
 MasterMind *-down-> "2" Jugador
 MasterMind *-down-> Turno
