@@ -10,46 +10,32 @@ namespace sanguino.mastermind {
     class Board {
         Board()
         + void write()
-        + void put(Combination)
-        + void put(Result)
+        + void nextTurn()
+        + void isFinished()
+        + void writeGameResult()
     }
 
-    class Turn {
-        {static} final int NUMBER_PLAYERS = 2;
-        - Player[] players;
-        - int active;
-        Turn(Board)
-        - void play()
-        - Player getPlayer()
-        - void writeWinner()
-    }
-
-    abstract class Player {
-        - Board board
-        Player(Board)
-        + void play()
-    }
-
-    class MakerPlayer extends Player {
-        MakerPlayer(Board)
-        + Combination getSecretCombination(Message)
-        + Result checkSecretCombination(Combination)
-    }
-
-    class BreakerPlayer extends Player {
-        BreakerPlayer(Board)
-        + Combination getProposedCombination(Message)
-        - Error checkCombinationDuplicatedColors(Combination)
-    }
-
-    class Combination {
+    abstract class Combination {
+        + {static} NUMBER_COLORS
         - Color[] colors
-        Combination(Color[])
+    }
+
+    class ProposedCombination extends Combination {
+        ProposedCombination()
+        + getColor
+        + toString
+    }
+
+    class SecretCombination extends Combination {
+        SecretCombination()
+        + Result check(Combination)
     }
 
     class Result {
         - Success[] success
         Result(Success[])
+        + isWinner()
+        + toString()
     }
 
     enum Color {
@@ -62,9 +48,7 @@ namespace sanguino.mastermind {
         NULL_COLOR
         - char symbol
         - Color(char)
-        + boolean isNull()
-        void write()
-        {static} Color get(int)
+        + {static} Color getFromValue(char)
     }
 
     enum Success {
@@ -72,55 +56,37 @@ namespace sanguino.mastermind {
         BLACK
         NULL_SUCCESS
         - Success()
-        + boolean isNull()
-        - void write()
-        - {static} Success get(int)
     }
 
     enum Message {
         TITTLE
-        SEPARATOR
-        NUMBER_ATTEMPS
-        SECRET_COMBINATION
         ENTER_COMBINATION
+        ATTEMPTS
+        SECRET_CODE
+        SEPARATOR
+        PART_BLACKS
+        PART_WHITES
         RESULT
         PLAYER_WIN
-        PLAYER_LOSE
+        PLAYER_LOOSE
         RESUME
         NULL_MESSAGE
         - String message
         - Message(String)
-        + void write()
         + void writeln()
-    }
-
-    enum Error {
-        WRONG_LENGTH
-        WRONG_COLOR
-        DUPLICATED
-        NULL_ERROR
-        - String message
-        Error()
-        Error(String)
-        + void writeln()
+        + void writeln(int)
+        + void writeln(String,)
     }
 
     MasterMind *-down-> Board
-    MasterMind *-down-> Turn
-    MasterMind *-down-> Player
-    Turn *-down-> Player
-    Board o-down-> "0..10" Combination
+    Board o-down-> "0..10" ProposedCombination
+    Board o-down-> SecretCombination
     Board o-down-> "0..10" Result
     Combination *-down-> "4" Color
-    Result *-down-> Success
-    BreakerPlayer .-down-> Error
-    MakerPlayer *-down-> Message
-    MakerPlayer *-down-> "1" Combination
-    BreakerPlayer .-down-> Message
-    BreakerPlayer .-down-> Board
+    Result *-down-> "4" Success
+    ProposedCombination .-down-> Message
     MasterMind .-down-> Message
     Board .-down-> Message
-    Turn .-down-> Message
 }
 
 namespace sanguino.utils {
@@ -143,10 +109,10 @@ namespace sanguino.utils {
     }
 
     class CombinationStringDialog { 
-        - {static} {final} int LENGTH
-        - {static} {final} String ERROR_LENGTH_MESSAGE
-        - {static} {final} String ERROR_COLORS_MESSAGE
-        + CombinationStringDialog(int, int)
+        - Error checkLength(String, int)
+        - Error checkNotDuplicated(String)
+        - Error checkCharacters(String)
+        - Error checkErrors(String, int)
         + int read(String)
     }
 
@@ -162,16 +128,25 @@ namespace sanguino.utils {
         - boolean isNegative()
     }
 
+    enum Error {
+        WRONG_LENGTH
+        WRONG_COLOR
+        WRONG_DUPLICATED
+        NULL_ERROR
+        - String message
+        Error()
+        Error(String)
+        + void writeln()
+    }
+
     YesNoDialog .-down-> Console
     CombinationStringDialog .-down-> Console
+    CombinationStringDialog .-down-> Error
+    Error .-down-> Console
 }
 
-sanguino.utils.CombinationStringDialog .-down-> sanguino.mastermind.Color
-sanguino.mastermind.Error .-down-> sanguino.utils.Console
 sanguino.mastermind.Message .-down-> sanguino.utils.Console
-sanguino.mastermind.Success .-down-> sanguino.utils.Console
-sanguino.mastermind.Turn .-down-> sanguino.utils.CombinationStringDialog
+sanguino.mastermind.Board .-down-> sanguino.utils.CombinationStringDialog
 sanguino.mastermind.MasterMind .-down-> sanguino.utils.YesNoDialog
-
 
 @enduml
