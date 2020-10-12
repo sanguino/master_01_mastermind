@@ -34,6 +34,8 @@ namespace sanguino.mastermind {
     class Result {
         - Success[] success
         Result(Success[])
+        - long getBlacks()
+        - long getWhites()
         + isWinner()
         + toString()
     }
@@ -75,7 +77,7 @@ namespace sanguino.mastermind {
         - Message(String)
         + void writeln()
         + void writeln(int)
-        + void writeln(String,)
+        + void writeln(String, String)
     }
 
     MasterMind *-down-> Board
@@ -84,7 +86,6 @@ namespace sanguino.mastermind {
     Board o-down-> "0..10" Result
     Combination *-down-> "4" Color
     Result *-down-> "4" Success
-    ProposedCombination .-down-> Message
     MasterMind .-down-> Message
     Board .-down-> Message
 }
