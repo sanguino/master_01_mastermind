@@ -84,7 +84,6 @@ namespace sanguino.mastermind {
     Board o-down-> "0..10" Result
     Combination *-down-> "4" Color
     Result *-down-> "4" Success
-    ProposedCombination .-down-> Message
     MasterMind .-down-> Message
     Board .-down-> Message
 }
