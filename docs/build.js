@@ -8,3 +8,7 @@ gen.out.pipe(fs.createWriteStream("domainModel.jpg"));
 gen = plantuml.generate("classDiagram.puml");
 gen.out.pipe(fs.createWriteStream("classDiagram.jpg"));
 console.log("generating classDiagram.jpg")
+
+gen = plantuml.generate("classDocumentView.puml");
+gen.out.pipe(fs.createWriteStream("classDocumentView.jpg"));
+console.log("generating classDocumentView.jpg")

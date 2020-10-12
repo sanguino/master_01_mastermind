@@ -5,7 +5,7 @@ public class CombinationStringDialog {
     private static final String VALID_COLORS = "rbygop";
 
     private Error checkLength(String value, int numColors) {
-        return value.length() == numColors? Error.NULL_ERROR : Error.WRONG_LENGTH;
+        return value.length() == numColors ? Error.NULL_ERROR : Error.WRONG_LENGTH;
     }
 
     private Error checkCharacters(String value) {

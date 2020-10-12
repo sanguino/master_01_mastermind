@@ -1,29 +1,20 @@
 package sanguino.mastermind;
 
-import sanguino.utils.YesNoDialog;
+import sanguino.mastermind.models.Game;
+import sanguino.mastermind.views.View;
 
 class MasterMind {
 
-	private Board board;
+	private Game game;
+	private View view;
+
+	MasterMind() {
+		this.game = new Game();
+		this.view = new View(this.game);
+	}
 
 	private void play() {
-		do {
-			this.playGame();
-		} while (this.isResumedGame());
-	}
-
-	private void playGame() {
-		this.board = new Board();
-		this.board.write();
-		do {
-			this.board.nextTurn();
-			this.board.write();
-		} while (!this.board.isFinished());
-		this.board.writeGameResult();
-	}
-
-	private boolean isResumedGame() {
-		return new YesNoDialog().read(Message.RESUME.toString());
+		this.view.interact();
 	}
 
 	public static void main(String[] args) {

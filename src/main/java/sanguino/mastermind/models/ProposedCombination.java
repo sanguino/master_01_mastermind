@@ -1,11 +1,12 @@
-package sanguino.mastermind;
+package sanguino.mastermind.models;
 
 public class ProposedCombination extends Combination {
     private String combinationString;
+
     public ProposedCombination(String combinationString) {
         this.combinationString = combinationString;
         this.color = new Color[Combination.NUMBER_COLORS];
-        for (int i = 0; i < Combination.NUMBER_COLORS; i++){
+        for (int i = 0; i < Combination.NUMBER_COLORS; i++) {
             this.color[i] = Color.getFromValue(combinationString.charAt(i));
         }
     }

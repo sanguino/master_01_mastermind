@@ -1,4 +1,4 @@
-package sanguino.mastermind;
+package sanguino.mastermind.models;
 
 import java.util.Random;
 
@@ -13,14 +13,17 @@ public enum Color {
 
     private char symbol;
 
-    private Color() { }
+    private Color() {
+    }
 
     static public Color randomColor() {
-        int pick = new Random().nextInt(Color.values().length -1);
+        int pick = new Random().nextInt(Color.values().length - 1);
         return Color.values()[pick];
     }
 
-    Color(char symbol) {this.symbol = symbol;}
+    Color(char symbol) {
+        this.symbol = symbol;
+    }
 
     static public Color getFromValue(char value) {
         for (Color elem : Color.values()) {

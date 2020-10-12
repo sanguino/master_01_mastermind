@@ -3,16 +3,31 @@ namespace sanguino.mastermind {
 
     class MasterMind{
 	    - void play()
-	    - boolean isResumedGame()
 	    + static void main(String[])
+    }
+}
+
+namespace sanguino.mastermind.models {
+    class Game {
+        Game()
+        + void reset()
+        + void nextTurn(String proposed)
+        + int getTurn()
+        + String getProposedCombination()
+        + long getResultBlacks(int)
+        + long getResultWhites(int)
+        + void isFinished()
+        + void isWinner()
     }
 
     class Board {
         Board()
-        + void write()
-        + void nextTurn()
+        + void reset()
+        + void nextTurn(String proposed)
         + void isFinished()
-        + void writeGameResult()
+        + int getTurn()
+        + ProposedCombination getProposedCombination(int)
+        + Result getResult(int)
     }
 
     abstract class Combination {
@@ -34,10 +49,9 @@ namespace sanguino.mastermind {
     class Result {
         - Success[] success
         Result(Success[])
-        - long getBlacks()
-        - long getWhites()
+        + long getBlacks()
+        + long getWhites()
         + isWinner()
-        + toString()
     }
 
     enum Color {
@@ -60,14 +74,51 @@ namespace sanguino.mastermind {
         - Success()
     }
 
+    Game *-down-> Board
+    Board o-down-> "0..10" ProposedCombination
+    Board o-down-> SecretCombination
+    Board o-down-> "0..10" Result
+    Combination *-down-> "4" Color
+    Result *-down-> "4" Success
+}
+
+namespace sanguino.mastermind.views {
+
+    class GameView {
+        - Game game
+        void write()
+    }
+
+    class PlayView {
+        - Game game
+        void writeGameResult()
+        void interact()
+    }
+
+    class ResumeView {
+        boolean interact()
+    }
+
+    class StartView {
+        - Game game
+        void interact()
+    }
+
+    class View {
+        - Game game
+        - StartView startView
+        - PlayView playView
+        - ResumeView resumeView
+        View(Game game)
+        void interact()
+    }
+
     enum Message {
         TITTLE
         ENTER_COMBINATION
         ATTEMPTS
         SECRET_CODE
         SEPARATOR
-        PART_BLACKS
-        PART_WHITES
         RESULT
         PLAYER_WIN
         PLAYER_LOOSE
@@ -77,17 +128,19 @@ namespace sanguino.mastermind {
         - Message(String)
         + void writeln()
         + void writeln(int)
-        + void writeln(String, String)
+        + void writeln(String, long, long)
     }
 
-    MasterMind *-down-> Board
-    Board o-down-> "0..10" ProposedCombination
-    Board o-down-> SecretCombination
-    Board o-down-> "0..10" Result
-    Combination *-down-> "4" Color
-    Result *-down-> "4" Success
-    MasterMind .-down-> Message
-    Board .-down-> Message
+    View *-down-> StartView
+    View *-down-> PlayView
+    View *-down-> ResumeView
+
+    PlayView .-down-> GameView
+    GameView .-down-> Message
+    PlayView .-down-> Message
+    ResumeView .-down-> Message
+    StartView .-down-> Message
+    
 }
 
 namespace sanguino.utils {
@@ -146,8 +199,15 @@ namespace sanguino.utils {
     Error .-down-> Console
 }
 
-sanguino.mastermind.Message .-down-> sanguino.utils.Console
-sanguino.mastermind.Board .-down-> sanguino.utils.CombinationStringDialog
-sanguino.mastermind.MasterMind .-down-> sanguino.utils.YesNoDialog
+sanguino.mastermind.MasterMind *-down-> sanguino.mastermind.models.Game
+sanguino.mastermind.MasterMind *-down-> sanguino.mastermind.views.View
+
+sanguino.mastermind.views.View .-down-> sanguino.mastermind.models.Game
+sanguino.mastermind.views.StartView .-down-> sanguino.mastermind.models.Game
+sanguino.mastermind.views.GameView .-down-> sanguino.mastermind.models.Game
+sanguino.mastermind.views.PlayView .-down-> sanguino.mastermind.models.Game
+sanguino.mastermind.views.PlayView .-down-> sanguino.utils.CombinationStringDialog
+sanguino.mastermind.views.ResumeView .-down->  sanguino.utils.YesNoDialog
+sanguino.mastermind.views.Message .-down-> sanguino.utils.Console
 
 @enduml

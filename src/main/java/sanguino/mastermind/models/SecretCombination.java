@@ -1,17 +1,17 @@
-package sanguino.mastermind;
+package sanguino.mastermind.models;
 
 import java.util.Arrays;
 
-public class SecretCombination extends Combination{
+public class SecretCombination extends Combination {
 
-    public SecretCombination () {
+    public SecretCombination() {
         this.color = new Color[Combination.NUMBER_COLORS];
         int pos = 0;
         do {
             Color generated = Color.randomColor();
-            if (!Arrays.stream(this.color).anyMatch(generated::equals)){
+            if (!Arrays.stream(this.color).anyMatch(generated::equals)) {
                 this.color[pos] = generated;
-                pos ++;
+                pos++;
             }
         } while (pos < Combination.NUMBER_COLORS);
     }
@@ -21,7 +21,7 @@ public class SecretCombination extends Combination{
         for (int i = 0; i < Combination.NUMBER_COLORS; i++) {
             if (this.color[i] == proposedCombination.getColor(i)) {
                 success[i] = Success.BLACK;
-            } else if (Arrays.stream(this.color).anyMatch(proposedCombination.getColor(i)::equals)){
+            } else if (Arrays.stream(this.color).anyMatch(proposedCombination.getColor(i)::equals)) {
                 success[i] = Success.WHITE;
             } else {
                 success[i] = Success.NULL_SUCCESS;

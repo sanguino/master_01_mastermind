@@ -1,4 +1,4 @@
-package sanguino.mastermind;
+package sanguino.mastermind.models;
 
 import java.util.Arrays;
 
@@ -9,11 +9,11 @@ public class Result {
         this.success = success;
     }
 
-    private long getBlacks() {
+    public long getBlacks() {
         return Arrays.stream(this.success).filter(Success.BLACK::equals).count();
     }
 
-    private long getWhites() {
+    public long getWhites() {
         return Arrays.stream(this.success).filter(Success.WHITE::equals).count();
     }
 
@@ -21,8 +21,4 @@ public class Result {
         return Arrays.stream(this.success).allMatch(Success.BLACK::equals);
     }
 
-    @Override
-    public String toString() {
-       return Long.toString(this.getBlacks()) + Message.PART_BLACKS + Long.toString(this.getWhites()) + Message.PART_WHITES;
-    }
 }
