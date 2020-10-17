@@ -90,7 +90,7 @@ namespace sanguino.mastermind {
     Board .-down-> Message
 }
 
-namespace sanguino.utils {
+namespace sanguino.sanguino.utils {
 
     class Console {
         + static Console console
@@ -146,8 +146,8 @@ namespace sanguino.utils {
     Error .-down-> Console
 }
 
-sanguino.mastermind.Message .-down-> sanguino.utils.Console
-sanguino.mastermind.Board .-down-> sanguino.utils.CombinationStringDialog
-sanguino.mastermind.MasterMind .-down-> sanguino.utils.YesNoDialog
+sanguino.mastermind.Message .-down-> sanguino.sanguino.utils.Console
+sanguino.mastermind.Board .-down-> sanguino.sanguino.utils.CombinationStringDialog
+sanguino.mastermind.MasterMind .-down-> sanguino.sanguino.utils.YesNoDialog
 
 @enduml

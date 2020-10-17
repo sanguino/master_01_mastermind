@@ -57,7 +57,7 @@
               <transformers>
                 <transformer
                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>sanguino.mastermind.MasterMind</mainClass>
+                  <mainClass>usantatecla.mastermind.MasterMind</mainClass>
                 </transformer>
               </transformers>
             </configuration>
