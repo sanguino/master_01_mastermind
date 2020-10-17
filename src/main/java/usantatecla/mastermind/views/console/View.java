@@ -1,6 +1,7 @@
 package usantatecla.mastermind.views.console;
 
-import usantatecla.mastermind.models.Game;
+import usantatecla.mastermind.controllers.ProposeController;
+import usantatecla.mastermind.controllers.ResumeController;
 
 public class View extends usantatecla.mastermind.views.View {
 
@@ -8,11 +9,11 @@ public class View extends usantatecla.mastermind.views.View {
 	private ProposalView proposalView;
 	private ResumeView resumeView;
 
-	public View(Game game) {
+	public View(ProposeController proposeController, ResumeController resumeController) {
 		super();
 		this.startView = new StartView();
-		this.proposalView = new ProposalView(game);
-		this.resumeView = new ResumeView(game);
+		this.proposalView = new ProposalView(proposeController);
+		this.resumeView = new ResumeView(resumeController);
 	}
 
 	@Override

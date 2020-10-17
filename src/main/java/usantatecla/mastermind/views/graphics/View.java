@@ -1,10 +1,11 @@
 package usantatecla.mastermind.views.graphics;
 
-import usantatecla.mastermind.models.Game;
+import usantatecla.mastermind.controllers.ProposeController;
+import usantatecla.mastermind.controllers.ResumeController;
 
 public class View extends usantatecla.mastermind.views.View {
 
-	public View(Game game) {
+	public View(ProposeController proposeController, ResumeController resumeController) {
 		super();
 	}
 
