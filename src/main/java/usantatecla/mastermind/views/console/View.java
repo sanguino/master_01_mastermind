@@ -1,7 +1,6 @@
 package usantatecla.mastermind.views.console;
 
-import usantatecla.mastermind.controllers.ProposeController;
-import usantatecla.mastermind.controllers.ResumeController;
+import usantatecla.mastermind.controllers.Logic;
 
 public class View extends usantatecla.mastermind.views.View {
 
@@ -9,11 +8,11 @@ public class View extends usantatecla.mastermind.views.View {
 	private ProposalView proposalView;
 	private ResumeView resumeView;
 
-	public View(ProposeController proposeController, ResumeController resumeController) {
+	public View(Logic logic) {
 		super();
 		this.startView = new StartView();
-		this.proposalView = new ProposalView(proposeController);
-		this.resumeView = new ResumeView(resumeController);
+		this.proposalView = new ProposalView(logic);
+		this.resumeView = new ResumeView(logic);
 	}
 
 	@Override

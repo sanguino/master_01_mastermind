@@ -1,7 +1,5 @@
 package usantatecla.mastermind.views;
 
-import usantatecla.mastermind.models.Game;
-
 public abstract class View {
 
 	public View() {}

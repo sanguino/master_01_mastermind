@@ -1,11 +1,10 @@
 package usantatecla.mastermind.views.graphics;
 
-import usantatecla.mastermind.controllers.ProposeController;
-import usantatecla.mastermind.controllers.ResumeController;
+import usantatecla.mastermind.controllers.Logic;
 
 public class View extends usantatecla.mastermind.views.View {
 
-	public View(ProposeController proposeController, ResumeController resumeController) {
+	public View(Logic logic) {
 		super();
 	}
 

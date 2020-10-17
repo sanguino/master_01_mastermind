@@ -1,17 +1,17 @@
 package usantatecla.mastermind.views.console;
 
-import usantatecla.mastermind.controllers.ProposeController;
+import usantatecla.mastermind.controllers.Logic;
 import usantatecla.mastermind.models.ProposedCombination;
 import usantatecla.utils.WithConsoleView;
 
 class ProposalView extends WithConsoleView {
 
-	private ProposeController proposeController;
+	private Logic logic;
 	
 	private SecretCombinationView secretCombinationView;
 
-	ProposalView(ProposeController proposeController) {
-		this.proposeController = proposeController;
+	ProposalView(Logic logic) {
+		this.logic = logic;
 		this.secretCombinationView = new SecretCombinationView();
 	}
 
@@ -19,18 +19,18 @@ class ProposalView extends WithConsoleView {
 		ProposedCombination proposedCombination = new ProposedCombination();
 		ProposedCombinationView proposedCombinationView = new ProposedCombinationView(proposedCombination);
 		proposedCombinationView.read();
-		this.proposeController.addProposedCombination(proposedCombination);
+		this.logic.addProposedCombination(proposedCombination);
 		this.console.writeln();
-		MessageView.ATTEMPTS.writeln(this.proposeController.getAttempts());
+		MessageView.ATTEMPTS.writeln(this.logic.getAttempts());
 		this.secretCombinationView.writeln();
-		for (int i = 0; i < this.proposeController.getAttempts(); i++) {
-			new ProposedCombinationView(this.proposeController.getProposedCombination(i)).write();
-			new ResultView(this.proposeController.getResult(i)).writeln();
+		for (int i = 0; i < this.logic.getAttempts(); i++) {
+			new ProposedCombinationView(this.logic.getProposedCombination(i)).write();
+			new ResultView(this.logic.getResult(i)).writeln();
 		}
-		if (this.proposeController.isWinner()) {
+		if (this.logic.isWinner()) {
 			MessageView.WINNER.writeln();
 			return true;
-		} else if (this.proposeController.isLooser()) {
+		} else if (this.logic.isLooser()) {
 			MessageView.LOOSER.writeln();
 			return true;
 		}
