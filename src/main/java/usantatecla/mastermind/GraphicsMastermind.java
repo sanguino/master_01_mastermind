@@ -1,25 +1,23 @@
 package usantatecla.mastermind;
 
 import usantatecla.mastermind.models.Game;
-import usantatecla.mastermind.views.View;
+import usantatecla.mastermind.views.graphics.View;
 
-public class Mastermind {
+public class GraphicsMastermind {
 
 	private Game game;
 	
 	private View view;
 
-	private Mastermind() {
+	private GraphicsMastermind() {
 		this.game = new Game();
 		this.view = new View(this.game);
 	}
 
-	private void play() {
-		this.view.interact();
-	}
+	private void play() { this.view.interact();	}
 	
 	public static void main(String[] args) {
-		new Mastermind().play();
+		new GraphicsMastermind().play();
 	}	
 
 }
