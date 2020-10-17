@@ -1,6 +1,9 @@
 package usantatecla.mastermind.views.console;
 
-import usantatecla.mastermind.controllers.Logic;
+import usantatecla.mastermind.controllers.Controller;
+import usantatecla.mastermind.controllers.ProposeController;
+import usantatecla.mastermind.controllers.ResumeController;
+import usantatecla.mastermind.controllers.StartController;
 
 public class View extends usantatecla.mastermind.views.View {
 
@@ -8,25 +11,24 @@ public class View extends usantatecla.mastermind.views.View {
 	private ProposalView proposalView;
 	private ResumeView resumeView;
 
-	public View(Logic logic) {
+	public View() {
 		super();
 		this.startView = new StartView();
-		this.proposalView = new ProposalView(logic);
-		this.resumeView = new ResumeView(logic);
+		this.proposalView = new ProposalView();
+		this.resumeView = new ResumeView();
 	}
 
 	@Override
-	protected void start() {
-		this.startView.interact();
+	public void interact(Controller controller) {
+		if (controller instanceof StartController) {
+			this.startView.interact((StartController) controller);
+		} else {
+			if (controller instanceof ProposeController) {
+				this.proposalView.interact((ProposeController) controller);
+			} else {
+				this.resumeView.interact((ResumeController) controller);
+			}
+		}
 	}
 
-	@Override
-	protected boolean propose() {
-		return this.proposalView.interact();
-	}
-
-	@Override
-	protected boolean isNewGame() {
-		return this.resumeView.interact();
-	}
 }

@@ -3,17 +3,19 @@ package usantatecla.mastermind.controllers;
 import usantatecla.mastermind.models.Game;
 import usantatecla.mastermind.models.ProposedCombination;
 import usantatecla.mastermind.models.Result;
+import usantatecla.mastermind.models.State;
 
-public class ProposeController {
+public class ProposeController extends Controller {
 
-    private Game game;
-
-    public ProposeController(Game game) {
-        this.game = game;
+    public ProposeController(Game game, State state) {
+        super(game, state);
     }
 
     public void addProposedCombination(ProposedCombination proposedCombination) {
         this.game.addProposedCombination(proposedCombination);
+        if (this.isWinner() || this.isLooser()) {
+            this.next();
+        }
     }
 
     public int getAttempts() {

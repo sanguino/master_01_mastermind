@@ -1,21 +1,11 @@
 package usantatecla.mastermind.views.graphics;
 
-import usantatecla.mastermind.controllers.Logic;
+import usantatecla.mastermind.controllers.Controller;
 
 public class View extends usantatecla.mastermind.views.View {
 
-	public View(Logic logic) {
-		super();
+	@Override
+	public void interact(Controller controller) {
 	}
 
-	@Override
-	protected void start() {
-
-	}
-
-	@Override
-	protected boolean propose() { return false; }
-
-	@Override
-	protected boolean isNewGame() { return false; }
 }

@@ -1,46 +1,31 @@
 package usantatecla.mastermind.controllers;
 
-import usantatecla.mastermind.models.Game;
-import usantatecla.mastermind.models.ProposedCombination;
-import usantatecla.mastermind.models.Result;
+import usantatecla.mastermind.models.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Logic {
 
     private Game game;
-    private ProposeController proposeController;
-    private ResumeController resumeController;
+    private State state;
+    private Map<StateValue, Controller> controllers;
 
     public Logic () {
         this.game = new Game();
-        this.proposeController = new ProposeController(this.game);
-        this.resumeController = new ResumeController(this.game);
+        this.state = new State();
+        createControllers();
     }
 
-    public void addProposedCombination(ProposedCombination proposedCombination) {
-        this.proposeController.addProposedCombination(proposedCombination);
+    private void createControllers() {
+        this.controllers = new HashMap<>();
+        this.controllers.put(StateValue.INITIAL, new StartController(this.game, this.state));
+        this.controllers.put(StateValue.PROPOSE, new ProposeController(this.game, this.state));
+        this.controllers.put(StateValue.RESUME, new ResumeController(this.game, this.state));
+        this.controllers.put(StateValue.EXIT, null);
     }
 
-    public int getAttempts() {
-        return this.proposeController.getAttempts();
-    }
-
-    public ProposedCombination getProposedCombination(int i) {
-        return this.proposeController.getProposedCombination(i);
-    }
-
-    public Result getResult(int i) {
-        return this.proposeController.getResult(i);
-    }
-
-    public boolean isWinner() {
-        return this.proposeController.isWinner();
-    }
-
-    public boolean isLooser() {
-        return this.proposeController.isLooser();
-    }
-
-    public void resume() {
-        this.resumeController.resume();
+    public Controller getController() {
+        return this.controllers.get(this.state.getValueState());
     }
 }
