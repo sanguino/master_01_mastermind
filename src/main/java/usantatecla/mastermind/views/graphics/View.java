@@ -1,11 +1,11 @@
 package usantatecla.mastermind.views.graphics;
 
-import usantatecla.mastermind.controllers.UseCaseController;
+import usantatecla.mastermind.controllers.AcceptorController;
 
 public class View extends usantatecla.mastermind.views.View {
 
 	@Override
-	public void interact(UseCaseController controller) {
+	public void interact(AcceptorController acceptorController) {
 	}
 
 }

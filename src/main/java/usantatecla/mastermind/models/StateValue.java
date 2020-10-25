@@ -2,7 +2,7 @@ package usantatecla.mastermind.models;
 
 public enum StateValue {
   INITIAL,
-  PROPOSE,
+  IN_GAME,
   RESUME,
   EXIT;
 }

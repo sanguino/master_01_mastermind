@@ -1,11 +1,11 @@
 package usantatecla.mastermind.controllers;
 
-import usantatecla.mastermind.models.Game;
-import usantatecla.mastermind.models.State;
+import usantatecla.mastermind.models.Session;
 
-public class StartController extends UseCaseController {
-    public StartController(Game game, State state) {
-        super(game, state);
+public class StartController extends AcceptorController {
+
+    public StartController(Session session) {
+        super(session);
     }
 
     @Override
