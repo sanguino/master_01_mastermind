@@ -2,15 +2,13 @@ package usantatecla.mastermind.controllers;
 
 import usantatecla.mastermind.models.Session;
 
-public class ResumeController extends AcceptorController {
+public abstract class ResumeController extends AcceptorController {
 
     public ResumeController(Session session) {
         super(session);
     }
 
-    public void resume() {
-        this.session.reset();
-    }
+    public abstract void resume();
 
     @Override
     public void accept(ControllerVisitor controllerVisitor) {

@@ -1,6 +1,7 @@
 package usantatecla.mastermind.controllers;
 
 import usantatecla.mastermind.models.Session;
+import usantatecla.mastermind.models.StateValue;
 
 public abstract class Controller {
 
@@ -12,6 +13,10 @@ public abstract class Controller {
 
     public void next() {
         this.session.nextState();
+    }
+
+    public StateValue getValueState() {
+        return this.session.getValueState();
     }
 
 }

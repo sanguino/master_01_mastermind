@@ -4,66 +4,35 @@ import usantatecla.mastermind.models.ProposedCombination;
 import usantatecla.mastermind.models.Result;
 import usantatecla.mastermind.models.Session;
 
-public class PlayController extends AcceptorController {
-
-    private ProposeController proposeController;
-    private UndoController undoController;
-    private RedoController redoController;
-
+public abstract class PlayController extends AcceptorController {
 
     public PlayController(Session session) {
-
         super(session);
-        this.proposeController = new ProposeController(session);
-        this.undoController = new UndoController(session);
-        this.redoController = new RedoController(session);
-
-
     }
 
-    public void addProposedCombination(ProposedCombination proposedCombination) {
-        this.proposeController.addProposedCombination(proposedCombination);
-    }
+    public abstract void addProposedCombination(ProposedCombination proposedCombination);
 
-    public int getAttempts() {
-        return this.proposeController.getAttempts();
-    }
+    public abstract int getAttempts();
 
-    public ProposedCombination getProposedCombination(int i) {
-        return this.proposeController.getProposedCombination(i);
-    }
+    public abstract ProposedCombination getProposedCombination(int i);
 
-    public Result getResult(int i) {
-        return this.proposeController.getResult(i);
-    }
+    public abstract Result getResult(int i);
 
-    public boolean isWinner() {
-        return this.proposeController.isWinner();
-    }
+    public abstract boolean isWinner();
 
-    public boolean isLooser() {
-        return this.proposeController.isLooser();
-    }
+    public abstract boolean isLooser();
 
-    public void undo() {
-        this.undoController.undo();
-    }
+    public abstract void undo();
 
-    public void redo() {
-        this.redoController.redo();
-    }
+    public abstract void redo();
+
+    public abstract boolean undoable();
+
+    public abstract boolean redoable();
 
     @Override
     public void accept(ControllerVisitor controllerVisitor) {
         controllerVisitor.visit(this);
-    }
-
-    public boolean undoable() {
-        return this.undoController.undoable();
-    }
-
-    public boolean redoable() {
-        return this.redoController.redoable();
     }
 
 }
