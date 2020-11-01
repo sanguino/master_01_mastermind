@@ -1,9 +1,35 @@
 package usantatecla.mastermind.views;
 
-import usantatecla.mastermind.controllers.UseCaseController;
+import usantatecla.mastermind.controllers.*;
 
-public abstract class View {
+public class View implements ControllerVisitor {
 
-	public abstract void interact(UseCaseController controller);
+    private StartView startView;
+    private ProposalView proposalView;
+    private ResumeView resumeView;
 
+    public View() {
+        this.startView = new StartView();
+        this.proposalView = new ProposalView();
+        this.resumeView = new ResumeView();
+    }
+
+    public void interact(UseCaseController controller) {
+        controller.accept(this);
+    }
+
+    @Override
+    public void visit(StartController startController) {
+        startView.interact(startController);
+    }
+
+    @Override
+    public void visit(ProposeController proposeController) {
+        proposalView.interact(proposeController);
+    }
+
+    @Override
+    public void visit(ResumeController resumeController) {
+        resumeView.interact(resumeController);
+    }
 }

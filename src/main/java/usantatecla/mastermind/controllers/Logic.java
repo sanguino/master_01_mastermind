@@ -1,6 +1,8 @@
 package usantatecla.mastermind.controllers;
 
-import usantatecla.mastermind.models.*;
+import usantatecla.mastermind.models.Game;
+import usantatecla.mastermind.models.State;
+import usantatecla.mastermind.models.StateValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +13,7 @@ public class Logic {
     private State state;
     private Map<StateValue, UseCaseController> controllers;
 
-    public Logic () {
+    public Logic() {
         this.game = new Game();
         this.state = new State();
         createControllers();

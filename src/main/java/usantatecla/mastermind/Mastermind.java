@@ -1,20 +1,18 @@
 package usantatecla.mastermind;
 
-import usantatecla.mastermind.controllers.UseCaseController;
 import usantatecla.mastermind.controllers.Logic;
+import usantatecla.mastermind.controllers.UseCaseController;
 import usantatecla.mastermind.views.View;
 
-public abstract class Mastermind {
+public class Mastermind {
 
     protected View view;
     private Logic logic;
 
     protected Mastermind() {
         this.logic = new Logic();
-        this.view = this.createView();
+        this.view = new View();
     }
-
-    protected abstract View createView();
 
     protected void play() {
         UseCaseController controller;
@@ -24,6 +22,10 @@ public abstract class Mastermind {
                 this.view.interact(controller);
             }
         } while (controller != null);
+    }
+
+    public static void main(String[] args) {
+        new Mastermind().play();
     }
 
 }
