@@ -2,7 +2,7 @@ package usantatecla.mastermind.views;
 
 import usantatecla.utils.Console;
 
-enum MessageView {
+public enum MessageView {
     ATTEMPTS("#attempts attempt(s): "),
     SECRET("*"),
     RESUME("Do you want to continue"),
@@ -10,7 +10,9 @@ enum MessageView {
     PROPOSED_COMBINATION("Propose a combination: "),
     TITLE("----- MASTERMIND -----"),
     WINNER("You've won!!! ;-)"),
-    LOOSER("You've lost!!! :-(");
+    LOOSER("You've lost!!! :-("),
+    COLORS("+ "),
+    ERROR("Error: ");
 
     private String message;
 
@@ -21,19 +23,32 @@ enum MessageView {
         this.message = message;
     }
 
-    void write() {
+    public void write() {
         this.console.write(this.message);
     }
 
-    void writeln() {
+    public void writeln() {
         this.console.writeln(this.message);
     }
 
-    void writeln(int attempts) {
+    public void write(String colors) {
+        assert this == MessageView.COLORS;
+        this.console.write(this.message + colors);
+    }
+
+    public void writeln(String error) {
+        assert this == MessageView.ERROR;
+        this.console.writeln(this.message + error);
+    }
+
+    public void writeln(int attempts) {
+        assert this == MessageView.ATTEMPTS;
+        this.console.writeln();
         this.console.writeln(this.message.replaceAll("#attempts", "" + attempts));
     }
 
-    void writeln(int blacks, int whites) {
+    public void writeln(int blacks, int whites) {
+        assert this == MessageView.RESULT;
         this.console.writeln(this.message.replaceFirst("#blacks", "" + blacks).replaceFirst("#whites", "" + whites));
     }
 

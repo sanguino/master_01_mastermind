@@ -1,25 +1,42 @@
 package usantatecla.mastermind;
 
-import usantatecla.mastermind.controllers.Logic;
-import usantatecla.mastermind.controllers.UseCaseController;
-import usantatecla.mastermind.views.View;
+import usantatecla.mastermind.controllers.Controller;
+import usantatecla.mastermind.controllers.ProposeController;
+import usantatecla.mastermind.controllers.ResumeController;
+import usantatecla.mastermind.controllers.StartController;
+import usantatecla.mastermind.models.Game;
+import usantatecla.mastermind.models.State;
+import usantatecla.mastermind.models.StateValue;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Mastermind {
 
-    protected View view;
-    private Logic logic;
+    private Game game;
+    private State state;
+    private Map<StateValue, Controller> controllers;
 
     protected Mastermind() {
-        this.logic = new Logic();
-        this.view = new View();
+        this.game = new Game();
+        this.state = new State();
+        createControllers();
+    }
+
+    private void createControllers() {
+        this.controllers = new HashMap<>();
+        this.controllers.put(StateValue.INITIAL, new StartController(this.game, this.state));
+        this.controllers.put(StateValue.PROPOSE, new ProposeController(this.game, this.state));
+        this.controllers.put(StateValue.RESUME, new ResumeController(this.game, this.state));
+        this.controllers.put(StateValue.EXIT, null);
     }
 
     protected void play() {
-        UseCaseController controller;
+        Controller controller;
         do {
-            controller = this.logic.getController();
+            controller = this.controllers.get(this.state.getValueState());
             if (controller != null) {
-                this.view.interact(controller);
+                controller.control();
             }
         } while (controller != null);
     }
