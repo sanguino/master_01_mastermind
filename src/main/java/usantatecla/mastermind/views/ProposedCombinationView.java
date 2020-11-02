@@ -10,7 +10,7 @@ public class ProposedCombinationView extends WithConsoleView {
     }
 
     public void write(String colors, int blacks, int whites) {
-        MessageView.COLORS.write(colors);
+        new ColorView().write(colors);
         MessageView.RESULT.writeln(blacks, whites);
     }
 }

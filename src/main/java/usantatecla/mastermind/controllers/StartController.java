@@ -5,6 +5,7 @@ import usantatecla.mastermind.models.SecretCombination;
 import usantatecla.mastermind.models.State;
 import usantatecla.mastermind.views.MessageView;
 import usantatecla.mastermind.views.SecretCombinationView;
+import usantatecla.mastermind.views.StartView;
 
 
 public class StartController extends Controller {
@@ -14,7 +15,7 @@ public class StartController extends Controller {
 
     @Override
     public void control() {
-        MessageView.TITLE.writeln();
+        new StartView().write();
         new SecretCombinationView().writeln(SecretCombination.getWidth());
         this.next();
     }

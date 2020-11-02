@@ -3,6 +3,7 @@ package usantatecla.mastermind.controllers;
 import usantatecla.mastermind.models.Game;
 import usantatecla.mastermind.models.State;
 import usantatecla.mastermind.views.MessageView;
+import usantatecla.mastermind.views.ResumeView;
 import usantatecla.utils.YesNoDialog;
 
 public class ResumeController extends Controller {
@@ -13,7 +14,7 @@ public class ResumeController extends Controller {
 
     @Override
     public void control() {
-        MessageView.RESUME.write();
+        new ResumeView().write();
 
         if (new YesNoDialog().read()) {
             this.resume();

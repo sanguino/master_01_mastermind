@@ -10,9 +10,7 @@ public enum MessageView {
     PROPOSED_COMBINATION("Propose a combination: "),
     TITLE("----- MASTERMIND -----"),
     WINNER("You've won!!! ;-)"),
-    LOOSER("You've lost!!! :-("),
-    COLORS("+ "),
-    ERROR("Error: ");
+    LOOSER("You've lost!!! :-(");
 
     private String message;
 
@@ -29,16 +27,6 @@ public enum MessageView {
 
     public void writeln() {
         this.console.writeln(this.message);
-    }
-
-    public void write(String colors) {
-        assert this == MessageView.COLORS;
-        this.console.write(this.message + colors);
-    }
-
-    public void writeln(String error) {
-        assert this == MessageView.ERROR;
-        this.console.writeln(this.message + error);
     }
 
     public void writeln(int attempts) {
